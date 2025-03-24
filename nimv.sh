@@ -376,21 +376,3 @@ fi
 
 git checkout "$VERSION_TAG"
 sh build_all.sh
-
-# Create symlinks and clean up
-if [ -d "$NIM_BIN_PATH" ]; then
-    echo "Setting version $1 as current version..."
-    create_symlinks "$NIM_BIN_PATH"
-
-    echo "Cleaning up installation directory..."
-    cd "$NIM_DIR" || exit 1
-    find . -mindepth 1 -maxdepth 1 ! -name 'bin' -exec rm -rf {} +
-    rm -f "$NIM_BIN_PATH"/nim_csources*
-
-    echo "Done."
-    cd "$INITIAL_DIR"
-else
-    echo "Error: Nim binary not found at $NIM_BIN_PATH"
-    cd "$INITIAL_DIR"
-    exit 1
-fi
