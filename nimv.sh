@@ -376,3 +376,16 @@ fi
 
 git checkout "$VERSION_TAG"
 sh build_all.sh
+
+# Create symlinks and clean up
+if [ -d "$NIM_BIN_PATH" ]; then
+    echo "Setting version $1 as current version..."
+    create_symlinks "$NIM_BIN_PATH"
+
+    echo "Done."
+    cd "$INITIAL_DIR"
+else
+    echo "Error: Nim binary not found at $NIM_BIN_PATH"
+    cd "$INITIAL_DIR"
+    exit 1
+fi
